@@ -148,8 +148,7 @@
 #define AUXINPUT3_PIN           15
 #define AUXINPUT4_PORT          GPIOC // Feed hold - PWR-DET connector
 #define AUXINPUT4_PIN           12
-#define AUXINPUT5_PORT          GPIOB // Cycle start - EXP1 pin 1
-#define AUXINPUT5_PIN           5
+// NOTE: EXP1 pins (PB5/PA15/PA9/PA10/PB9/PB8/PD6) are reserved for the Ender 3 LCD encoder.
 
 // Define user-control controls (cycle start, reset, feed hold) input pins.
 #if CONTROL_ENABLE & CONTROL_HALT
@@ -160,10 +159,7 @@
 #define FEED_HOLD_PORT          AUXINPUT4_PORT
 #define FEED_HOLD_PIN           AUXINPUT4_PIN
 #endif
-#if CONTROL_ENABLE & CONTROL_CYCLE_START
-#define CYCLE_START_PORT        AUXINPUT5_PORT
-#define CYCLE_START_PIN         AUXINPUT5_PIN
-#endif
+
 
 #if PROBE_ENABLE
 #define PROBE_PORT              AUXINPUT2_PORT
