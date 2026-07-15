@@ -75,6 +75,39 @@ void SystemClock_Config(void)
 
     if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
         Error_Handler();
+
+#if USB_SERIAL_CDC
+
+    /* USB clock: HSI48 trimmed against USB SOF via CRS */
+
+    RCC_OscInitTypeDef HSI48_Init = {
+        .OscillatorType = RCC_OSCILLATORTYPE_HSI48,
+        .HSI48State = RCC_HSI48_ON,
+        .PLL.PLLState = RCC_PLL_NONE
+    };
+    if (HAL_RCC_OscConfig(&HSI48_Init) != HAL_OK)
+        Error_Handler();
+
+    RCC_PeriphCLKInitTypeDef PeriphClkInit = {
+        .PeriphClockSelection = RCC_PERIPHCLK_USB,
+        .UsbClockSelection = RCC_USBCLKSOURCE_HSI48
+    };
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+        Error_Handler();
+
+    __HAL_RCC_CRS_CLK_ENABLE();
+
+    RCC_CRSInitTypeDef CRS_Init = {
+        .Prescaler = RCC_CRS_SYNC_DIV1,
+        .Source = RCC_CRS_SYNC_SOURCE_USB,
+        .Polarity = RCC_CRS_SYNC_POLARITY_RISING,
+        .ReloadValue = RCC_CRS_RELOADVALUE_DEFAULT,
+        .ErrorLimitValue = RCC_CRS_ERRORLIMIT_DEFAULT,
+        .HSI48CalibrationValue = RCC_CRS_HSI48CALIBRATION_DEFAULT
+    };
+    HAL_RCCEx_CRSConfig(&CRS_Init);
+
+#endif // USB_SERIAL_CDC
 }
 
 /**
