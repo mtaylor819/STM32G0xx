@@ -108,6 +108,8 @@
 #define AUXOUTPUT4_PIN          9
 #define AUXOUTPUT5_PORT         GPIOB // Spare - FAN2 (switched output)
 #define AUXOUTPUT5_PIN          15
+#define AUXOUTPUT6_PORT         GPIOC // Power supply control - PS-ON connector
+#define AUXOUTPUT6_PIN          13
 
 // Define driver spindle pins
 #if DRIVER_SPINDLE_ENABLE & SPINDLE_ENA
