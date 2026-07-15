@@ -96,7 +96,7 @@
 #endif
 #endif
 
-#define AUXOUTPUT0_PORT         GPIOA // Spindle PWM - SERVOS connector (5V logic)
+#define AUXOUTPUT0_PORT         GPIOA // Spindle PWM - SERVOS connector (3.3V logic)
 #define AUXOUTPUT0_PIN          1
 #define AUXOUTPUT1_PORT         GPIOC // Spindle direction - FAN0 (switched output)
 #define AUXOUTPUT1_PIN          6
@@ -119,7 +119,7 @@
 #if DRIVER_SPINDLE_ENABLE & SPINDLE_PWM
 #define SPINDLE_PWM_PORT_BASE   GPIOA_BASE
 #define SPINDLE_PWM_PORT        AUXOUTPUT0_PORT
-#define SPINDLE_PWM_PIN         AUXOUTPUT0_PIN // PA1 - TIM2_CH2
+#define SPINDLE_PWM_PIN         AUXOUTPUT0_PIN // PA1 - TIM2_CH2 (SERVOS)
 #endif
 #if DRIVER_SPINDLE_ENABLE & SPINDLE_DIR
 #define SPINDLE_DIRECTION_PORT  AUXOUTPUT1_PORT
@@ -138,8 +138,10 @@
 
 #define AUXINPUT0_PORT          GPIOC // Safety door / motor fault - SD-DET
 #define AUXINPUT0_PIN           3
-#define AUXINPUT1_PORT          GPIOA // I2C strobe - SERVOS connector (shared with spindle PWM!)
+#if I2C_STROBE_ENABLE // NOTE: shares PA1 with the spindle PWM output - do not enable both!
+#define AUXINPUT1_PORT          GPIOA // I2C strobe - SERVOS connector
 #define AUXINPUT1_PIN           1
+#endif
 #define AUXINPUT2_PORT          GPIOC // Probe - PROBE connector
 #define AUXINPUT2_PIN           14
 #define AUXINPUT3_PORT          GPIOC // Reset/EStop - E0-STOP connector

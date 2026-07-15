@@ -115,7 +115,12 @@
 
 // STM32G0xx alternate function mapping for supported spindle PWM pins.
 #if SPINDLE_PWM_PORT_BASE == GPIOA_BASE
-  #if SPINDLE_PWM_PIN == 1 // PA1 - TIM2_CH2, AF2
+  #if SPINDLE_PWM_PIN == 0 // PA0 - TIM2_CH1, AF2
+    #define SPINDLE_PWM_TIMER_N     2
+    #define SPINDLE_PWM_TIMER_CH    1
+    #define SPINDLE_PWM_TIMER_INV   0
+    #define SPINDLE_PWM_AF          GPIO_AF2_TIM2
+  #elif SPINDLE_PWM_PIN == 1 // PA1 - TIM2_CH2, AF2
     #define SPINDLE_PWM_TIMER_N     2
     #define SPINDLE_PWM_TIMER_CH    2
     #define SPINDLE_PWM_TIMER_INV   0
@@ -132,6 +137,11 @@
     #define SPINDLE_PWM_TIMER_CH    3
     #define SPINDLE_PWM_TIMER_INV   0
     #define SPINDLE_PWM_AF          GPIO_AF1_TIM3
+  #elif SPINDLE_PWM_PIN == 15 // PB15 - TIM1_CH3N, AF2
+    #define SPINDLE_PWM_TIMER_N     1
+    #define SPINDLE_PWM_TIMER_CH    3
+    #define SPINDLE_PWM_TIMER_INV   1
+    #define SPINDLE_PWM_AF          GPIO_AF2_TIM1
   #endif
 #elif SPINDLE_PWM_PORT_BASE == GPIOC_BASE
   #if SPINDLE_PWM_PIN == 6 // PC6 - TIM3_CH1, AF1
