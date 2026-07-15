@@ -781,6 +781,11 @@ void UART1_IRQHandler (void)
                 rxbuf1.head = next_head;                         // and update pointer
             }
         }
+#ifdef BOARD_BTT_SKR_MINI_E3_V30
+        // Half-duplex TMC2209 UART: reenable RX interrupt so the driver reply is captured
+        // after the TX echo. Ref. https://github.com/grblHAL/STM32F1xx/issues/49
+        UART1->CR1 |= USART_CR1_RXNEIE_RXFNEIE;
+#endif
     }
 
     if((UART1->ISR & USART_ISR_TXE_TXFNF) && (UART1->CR1 & USART_CR1_TXEIE_TXFNFIE)) {
