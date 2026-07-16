@@ -24,6 +24,8 @@ Not (yet) supported: SD card, I2C/EEPROM, keypad plugin over I2C.
 With [PlatformIO](https://platformio.org):
 
 ```sh
+git clone --recursive https://github.com/djwmarcx/STM32G0xx.git
+cd STM32G0xx
 pio run -e BTT_SKR_MINI_E3_V30_USB   # native USB serial (recommended)
 pio run -e BTT_SKR_MINI_E3_V30       # UART serial on the TFT header
 ```
@@ -72,7 +74,7 @@ Differences from the F1 driver worth knowing about:
 - The TMC2209 half-duplex UART needs the RX interrupt rearmed while the TX echo drains (see [grblHAL/STM32F1xx#49](https://github.com/grblHAL/STM32F1xx/issues/49)).
 - `grbl/platform.h` needs `STM32_G0_PLATFORM` detection — included here as a vendored patch, pending upstreaming to [grblHAL/core](https://github.com/grblHAL/core).
 
-The `grbl/` core and plugin directories are currently vendored snapshots (taken from the STM32F1xx driver tree); converting them to git submodules is planned once the core patch lands upstream.
+The plugin directories are git submodules pinned to the same commits the STM32F1xx driver uses (clone with `--recursive`). Only `grbl/` is a vendored snapshot, pending the `platform.h` patch landing upstream.
 
 ## Credits and license
 
