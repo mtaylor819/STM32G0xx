@@ -26,6 +26,7 @@
 #if defined(BOARD_BTT_SKR_MINI_E3_V30)
 
 #include <string.h>
+#include <stdio.h>
 
 #include "serial.h"
 
@@ -110,6 +111,19 @@ static void encoder_poll (sys_state_t state)
     if(ms == last_ms)
         return;
     last_ms = ms;
+
+#if ENC_DEBUG
+    static uint32_t dbg_ms = 0;
+    if(ms - dbg_ms >= 1000) {
+        dbg_ms = ms;
+        char buf[48];
+        sprintf(buf, "[MSG:enc A:%d B:%d BTN:%d]" ASCII_EOL,
+                (int)DIGITAL_IN(ENC_A_PORT, ENC_A_PIN),
+                (int)DIGITAL_IN(ENC_B_PORT, ENC_B_PIN),
+                (int)DIGITAL_IN(ENC_BTN_PORT, ENC_BTN_PIN));
+        hal.stream.write(buf);
+    }
+#endif
 
     // Quadrature decode, one step per detent (4 transitions)
     static const int8_t enc_delta[16] = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
