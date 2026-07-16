@@ -1,6 +1,7 @@
 [submodule "grbl"]
 	path = grbl
-	url = https://github.com/grblHAL/core
+	url = https://github.com/djwmarcx/core
+	branch = stm32g0-platform
 [submodule "keypad"]
 	path = keypad
 	url = https://github.com/grblHAL/Plugin_I2C_keypad

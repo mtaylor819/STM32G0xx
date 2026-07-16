@@ -72,9 +72,9 @@ Differences from the F1 driver worth knowing about:
 - EXTI has split rising/falling pending registers (RPR1/FPR1) and three shared vectors (EXTI0_1, EXTI2_3, EXTI4_15).
 - USB CDC runs on the USB_DRD_FS peripheral, clocked from HSI48 trimmed by CRS against USB SOF.
 - The TMC2209 half-duplex UART needs the RX interrupt rearmed while the TX echo drains (see [grblHAL/STM32F1xx#49](https://github.com/grblHAL/STM32F1xx/issues/49)).
-- `grbl/platform.h` needs `STM32_G0_PLATFORM` detection — included here as a vendored patch, pending upstreaming to [grblHAL/core](https://github.com/grblHAL/core).
+- `grbl/platform.h` needs `STM32_G0_PLATFORM` detection — carried on the [`stm32g0-platform` branch](https://github.com/djwmarcx/core/tree/stm32g0-platform) of a core fork, pending a PR to [grblHAL/core](https://github.com/grblHAL/core).
 
-The plugin directories are git submodules pinned to the same commits the STM32F1xx driver uses (clone with `--recursive`). Only `grbl/` is a vendored snapshot, pending the `platform.h` patch landing upstream.
+All core and plugin directories are git submodules (clone with `--recursive`), pinned to the same commits the STM32F1xx driver uses. `grbl/` points to a core fork carrying the one-line platform patch until it lands upstream.
 
 ## Credits and license
 
