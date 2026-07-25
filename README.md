@@ -6,6 +6,12 @@ Primary target: the [BTT SKR Mini E3 V3.0](https://github.com/bigtreetech/BIGTRE
 
 ## Status
 
+> [!WARNING]
+> **Testing stage.** This driver is young: it has been verified on a single
+> BTT SKR Mini E3 V3.0 (STM32G0B1RET6) driving a real CNC router — motion,
+> TMC2209 UART, USB, limits, spindle PWM and settings storage all work — but
+> it has not yet seen wide use. Expect rough edges, report issues.
+
 Verified on hardware (BTT SKR Mini E3 V3.0):
 
 - Stepper motion (TIM-based step generation)
@@ -18,6 +24,19 @@ Verified on hardware (BTT SKR Mini E3 V3.0):
 - PS-ON power supply control as an aux output (`M64`/`M65`)
 
 Not (yet) supported: SD card, I2C/EEPROM, keypad plugin over I2C.
+
+### Other boards
+
+The driver targets the STM32G0B1 and should be adaptable to other G0-based
+boards with a board map:
+
+- **BTT SKR Mini E3 V3.0 with STM32G0B0** — some recent units ship with the
+  G0B0 variant instead of the G0B1. Untested, but the peripherals this driver
+  uses are present on both; give it a try and report back.
+- **BTT Manta M4P / M5P / M8P and Manta E3 EZ** — same STM32G0B1 family
+  (RET6/VET6 packages), would need their own board maps.
+- **ST Nucleo-G0B1RE** — the PlatformIO reference board; `generic_map.h`
+  is the starting point for custom builds.
 
 ## Building
 
