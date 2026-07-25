@@ -9,29 +9,28 @@ src_dir = Src
 build_flags =
   -I .
   -I boards
-  -I FatFS
   -I Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
   -I Middlewares/ST/STM32_USB_Device_Library/Core/Inc
   -I USB_DEVICE/Target
   -D OVERRIDE_MY_MACHINE
+build_src_filter =
+  +<*>
+  -<i2c.c>
+  -<diskio.c>
 lib_deps =
   boards
-  bluetooth
   grbl
   keypad
   motors
   trinamic
   odometer
   plugins
-  FatFs
-  sdcard
   Core
   Class
   App
   Target
 lib_extra_dirs =
   .
-  FatFs
   Middlewares/ST/STM32_USB_Device_Library
   USB_DEVICE
 
@@ -47,7 +46,7 @@ board = %board%
 board_build.ldscript = %ldscript%
 build_flags = ${common.build_flags}
 %build_flags%
+build_src_filter = ${common.build_src_filter}
 lib_deps = ${common.lib_deps}
-  eeprom
 %lib_deps%
 lib_extra_dirs = ${common.lib_extra_dirs}
